@@ -1,4 +1,5 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
+import dayjs from 'dayjs';
 import { Check } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { api } from '../lib/axios';
@@ -17,7 +18,8 @@ interface HabitsInfo {
 }
 
 export function HabitsList({ date }: HabitsListProps) {
-  const [ habitsInfo, setHabitsInfo ] = useState<HabitsInfo>()
+  const [ habitsInfo, setHabitsInfo ] = useState<HabitsInfo>();
+  const isDateInPast = dayjs(date).endOf('day').isBefore(new Date());
   
   useEffect(() => {
     api.get('day', {
